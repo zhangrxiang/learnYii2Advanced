@@ -34,16 +34,19 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
+    $menuItemsLeft = [
         ['label' => Yii::t('common','Home'), 'url' => ['/site/index']],
+        ['label' => Yii::t('common','Post'), 'url' => ['/site/post']],
+    ];
+    $menuItemsRight = [
         ['label' => Yii::t('common','About'), 'url' => ['/site/about']],
         ['label' => Yii::t('common','Contact'), 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t('common','Signup'), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => Yii::t('common','Login'), 'url' => ['/site/login']];
+        $menuItemsRight[] = ['label' => Yii::t('common','Signup'), 'url' => ['/site/signup']];
+        $menuItemsRight[] = ['label' => Yii::t('common','Login'), 'url' => ['/site/login']];
     } else {
-        $menuItems[] = '<li>'
+        $menuItemsRight[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 Yii::t('common','Logout').' (' . Yii::$app->user->identity->username . ')',
@@ -52,9 +55,14 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     }
+    $menuItemsRight[] = ['label' => Yii::t('common','ChangeLanguage'), 'url' => ['/site/translations']];
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-left'],
+        'items' => $menuItemsLeft,
+    ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
+        'items' => $menuItemsRight,
     ]);
     NavBar::end();
     ?>

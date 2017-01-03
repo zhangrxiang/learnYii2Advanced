@@ -15,4 +15,7 @@ return [
     'Login' => '登陆',
     'Request password reset' => '请求重置密码',
     'Logout' => '退出',
+    'ChangeLanguage'=>'中英文切换',
+    'Post' => '文章'
+
 ];

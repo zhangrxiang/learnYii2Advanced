@@ -210,4 +210,21 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionTranslations(){
+        $language = \Yii::$app->session['language'];
+        !isset($language) && $language =="zh-CN";
+        if($language == "zh-CN"){
+            \Yii::$app->session['language']="en";
+        }else{
+            \Yii::$app->session['language']="zh-CN";
+        }
+        Yii::$app->sourceLanguage = \Yii::$app->session['language'];
+        //切换完语言哪来的返回到哪里
+//        $this->goBack(\Yii::$app->request->headers['Referer']);
+        return $this->render('index');
+    }
+    public function actionPost(){
+        return $this->render('post');
+    }
+
 }
