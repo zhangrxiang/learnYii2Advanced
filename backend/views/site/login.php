@@ -2,12 +2,13 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
+/* @var $model \backend\models\LoginForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\captcha\Captcha;
 
-$this->title = 'Login';
+$this->title = Yii::t('common','Login');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
