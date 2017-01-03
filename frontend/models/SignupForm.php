@@ -12,6 +12,8 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $repassword;
+    public $verifyCode;
 
 
     /**
@@ -22,17 +24,31 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'This email address has already been taken.'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            [['password','password'], 'required'],
+            [['password','repassword'],'number'],
+            [['password','password'], 'string', 'min' => 6],
+            ['repassword','compare','compareAttribute' => 'password'],
+            ['verifyCode', 'captcha'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => '用户名',
+            'email' => '邮件',
+            'password' => '密码',
+            'repassword' => '确认密码',
+            'verifyCode' => '验证码'
         ];
     }
 

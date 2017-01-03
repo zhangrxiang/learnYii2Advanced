@@ -31,6 +31,15 @@ class LoginForm extends Model
         ];
     }
 
+    public function activeAttributes(){
+        return [
+            'username' => '管理员',
+            'password' => '密码',
+            'rememberMe' => '记住密码',
+            'verifyCode' => '验证码'
+        ];
+    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
