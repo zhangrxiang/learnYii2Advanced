@@ -2,9 +2,11 @@
 
 namespace frontend\controllers;
 
+use common\models\CategoryModel;
 use Yii;
 use common\models\PostModel;
 use common\models\PostSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +22,16 @@ class PostController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','view','create','update','delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -64,13 +76,19 @@ class PostController extends Controller
     public function actionCreate()
     {
         $model = new PostModel();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $postData = Yii::$app->request->post();
+        if($postData){
+            $postData['PostModel']['uid'] = Yii::$app->user->id;
+            $model->load($postData) && $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            $categoryAll = CategoryModel::find()->select(['id','title'])->where(['status' => 1])->asArray()->all();
+            $category=[];
+            foreach ($categoryAll as $key){
+                $category[$key['id']] = $key['title'];
+            }
+            return $this->render(
+                'create', ['category' => $category,'model' => $model]);
         }
     }
 

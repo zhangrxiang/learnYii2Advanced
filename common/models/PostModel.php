@@ -39,8 +39,8 @@ class PostModel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'category_id', 'type', 'link_id', 'cover_id', 'display', 'attach', 'view', 'comment', 'create_time', 'update_time', 'status'], 'integer'],
-            [['category_id'], 'required'],
+//            [['uid', 'category_id', 'type', 'link_id', 'cover_id', 'display', 'attach', 'view', 'comment', 'create_time', 'update_time', 'status'], 'integer'],
+            [['title','description','category_id'], 'required'],
             [['title'], 'string', 'max' => 80],
             [['description'], 'string', 'max' => 140],
         ];
