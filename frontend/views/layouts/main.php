@@ -36,7 +36,7 @@ AppAsset::register($this);
     ]);
     $menuItemsLeft = [
         ['label' => Yii::t('common','Home'), 'url' => ['/site/index']],
-        ['label' => Yii::t('common','Post'), 'url' => ['/site/post']],
+        ['label' => Yii::t('common','Post'), 'url' => ['/post/index']],
     ];
     $menuItemsRight = [
         ['label' => Yii::t('common','About'), 'url' => ['/site/about']],
